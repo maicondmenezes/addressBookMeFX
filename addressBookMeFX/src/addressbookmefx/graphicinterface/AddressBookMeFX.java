@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package addressbookmefx.graphicinterface.snapscreen;
+package addressbookmefx.graphicinterface;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +18,7 @@ public class AddressBookMeFX extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLSnapScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLMainScreen.fxml"));
         
         Scene scene = new Scene(root);
         

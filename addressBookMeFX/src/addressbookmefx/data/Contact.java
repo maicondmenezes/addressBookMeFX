@@ -13,22 +13,30 @@
 */
 package addressbookmefx.data;
 
-import java.util.ArrayList;
-import java.util.*;
+import java.io.Serializable;
 
 /**
  *
  * @author MaJoy
  */
-public class Contact extends Person {
-    private ArrayList<String> emailList;
-    private ArrayList<Phone> phoneList;
+public class Contact extends Person implements Serializable {
+    private String email;
+    private Phone phone;
 
-    public Contact(String firstName, String lastName, String cpf, Date date,
-            String address, ArrayList<String> emailList, ArrayList<Phone> phoneList) {
+    public Contact(String firstName, 
+                   String lastName, 
+                   String cpf, 
+                   String date,
+                   String address, 
+                   String email, 
+                   Phone phone){
         super(firstName, lastName, cpf, date, address);
-        this.emailList = emailList;
-        this.phoneList = phoneList;
+        this.email = email;
+        this.phone = phone;
+    }
+    
+    public Contact(){
+        this("","","","","","",null);
     }
 
     @Override
@@ -38,25 +46,43 @@ public class Contact extends Person {
         str.append(super.toString());
         str.append("\n");
         
-        str.append("Emails: ");
-        for (String email : emailList) {
-            str.append("  ");
-            str.append(email);
-            str.append("\n");
-        }
+        str.append("Email: ");
+        str.append(this.email);
         str.append("\n");
-        
-        str.append("Telefones:");
-        str.append("\n");
-        for (Phone phoneNumber : phoneList) {
-            str.append("|");
-            str.append(phoneNumber.toString());
-            str.append("|");
-            str.append(phoneNumber.getType());
-            str.append("\n");
-        }
+          
+        str.append("Telefone:");
+        str.append(this.phone.toString());
+        str.append("\n");        
 
         return str.toString();
+    }
+
+    /**
+     * @return the emailList
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @return the phoneList
+     */
+    public Phone getPhone() {
+        return phone;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @param phone the phone to set
+     */
+    public void setPhone(Phone phone) {
+        this.phone = phone;
     }
 
 }

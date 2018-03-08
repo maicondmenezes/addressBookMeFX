@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" blendMode="SRC_OVER" prefHeight="250.0" prefWidth="315.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="addressbookmefx.FXMLDocumentController">
+<AnchorPane id="AnchorPane" blendMode="SRC_OVER" prefHeight="250.0" prefWidth="315.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="addressbookmefx.graphicinterface.FXMLSnapScreenController">
   <children>
     <Label fx:id="lblTitle" ellipsisString="..." layoutX="14.0" layoutY="14.0" text="addressBookMe" underline="false">
       <font>

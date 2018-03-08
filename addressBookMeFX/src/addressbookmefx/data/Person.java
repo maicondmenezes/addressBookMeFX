@@ -14,17 +14,17 @@
 *@date   19/02/2018
 */
 package addressbookmefx.data;
-import java.util.*;
+import java.io.Serializable;
 
-public abstract class Person {
-
-    private final String firstName;
-    private final String lastName;
-    private final String cpf;
-    private final Date birthDay;
-    private final String address;
+public abstract class Person implements Serializable {
+    private String firstName;
+    private String lastName;
+    private String cpf;
+    private String birthDay;
+    private String address;
     
-    public Person(String firstName, String lastName, String cpf, Date date, String address) {
+    public Person(String firstName, String lastName, String cpf, String date, String address){
+        super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.cpf = cpf;
@@ -32,18 +32,84 @@ public abstract class Person {
         this.address = address;
     }
 
-    public String getName() {
-        return firstName + " " + lastName;
-    }
-
-    public String getCPF() {
-        return cpf;
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
     }
 
     @Override
     public String toString() {
-        return "" + firstName + " " + lastName
-                + " | CPF: " + cpf
-                + " | Nascimento: " + birthDay;
+        return "" + getFirstName() + " " + getLastName()
+                + " | CPF: " + getCpf()
+                + " | Nascimento: " + getBirthDay();
+    }
+         
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @return the cpf
+     */
+    public String getCpf() {
+        return cpf;
+    }
+
+    /**
+     * @return the birthDay
+     */
+    public String getBirthDay() {
+        return birthDay;
+    }
+
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    /**
+     * @param cpf the cpf to set
+     */
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    /**
+     * @param birthDay the birthDay to set
+     */
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
