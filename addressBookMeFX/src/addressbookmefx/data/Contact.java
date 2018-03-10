@@ -40,16 +40,14 @@ public class Contact extends Person implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public String exportText() {
         StringBuilder str = new StringBuilder();
         str.append("Nome: ");
-        str.append(super.toString());
-        str.append("\n");
-        
+        str.append(super.exportText());
+              
         str.append("Email: ");
         str.append(this.email);
-        str.append("\n");
-          
+                  
         str.append("Telefone:");
         str.append(this.phone.toString());
         str.append("\n");        

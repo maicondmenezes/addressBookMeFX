@@ -37,7 +37,11 @@ public abstract class Person implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public String toString(){
+       return this.getFullName();
+    }
+    
+    public String exportText() {
         return "" + getFirstName() + " " + getLastName()
                 + " | CPF: " + getCpf()
                 + " | Nascimento: " + getBirthDay();

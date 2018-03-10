@@ -1,5 +1,6 @@
 package addressbookmefx.filemanagement;
 
+import addressbookmefx.data.Contact;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
     
   public class FileManagement {
-    
+   
     // serialização: gravando o objetos no arquivo binário "fileName"
     public static void saveInFile(ArrayList<Object> objectList, String fileName) {
       File objectFile = new File(fileName);
@@ -40,7 +41,7 @@ import java.io.ObjectOutputStream;
           System.out.printf("Erro: %s", erro2.getMessage());
       }
     
-      return(objectList);
+      return objectList;
     }
     
   }
