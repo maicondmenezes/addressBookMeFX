@@ -8,14 +8,11 @@ package addressbookmefx.graphicinterface;
 import addressbookmefx.data.Contact;
 import addressbookmefx.data.Phone;
 import addressbookmefx.filemanagement.FileManagement;
-import addressbookmefx.filemanagement.ReadSchedule;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,11 +20,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.SplitPane;
-
-
+import javafx.stage.FileChooser;
 /**
  * FXML Controller class
  *
@@ -93,7 +88,7 @@ public class FXMLMainScreenController implements Initializable {
     @FXML
     private ListView<Object> lstContacts;
     private ArrayList<Object> listOfContacts = new ArrayList<>();
-    
+    private File file;
     /*Botões*/
     @FXML
     private Button btnNewSchedule ;
@@ -109,22 +104,53 @@ public class FXMLMainScreenController implements Initializable {
     private Button btnEditContact ;
     @FXML
     private Button btnSaveContact ;
+    @FXML
+    private Button btnSaveSchedule;
+    @FXML
+    private Button btnSortSchedule;
               
+    /*Cria uma nova agenda*/
+    @FXML
+    public void btnNewScheduleClick(){
+        btnNewSchedule.setDisable(true);
+        btnSaveSchedule.setDisable(false);
+        btnSortSchedule.setDisable(false);
+        btnOpenSchedule.setDisable(false);
+        btnSearchContact.setDisable(false);
+        btnSaveContact.setDisable(false);
+        btnNewContact.setDisable(true);
+        this.clearForm();
+        this.enableForm(true);
+    }
+    /*Salva a agenda*/
+    @FXML
+    public void btnSaveScheduleClick(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Selecione a agenda");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SER", "*.ser"));        
+        file = fileChooser.showSaveDialog(null);     
+        FileManagement.saveInFile(listOfContacts, file);
+    }
     /*Cria uma nova instancia de contato*/
     @FXML
     public void btnNewContactClick(ActionEvent event){
         this.clearForm();
         btnSaveContact.setDisable(false);
-        btnNewContact.setDisable(true);        
+        btnNewContact.setDisable(true);
+        this.enableForm(true);
     }
     /*Carrega o arquivo da agenda*/
     @FXML
     public void btnOpenScheduleClick(ActionEvent event){
-        String fileName = "contato.ser";
-        listOfContacts = FileManagement.loadFromFile(fileName);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Selecione a agenda");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SER", "*.ser"));        
+        file = fileChooser.showOpenDialog(null);
+        
+        listOfContacts = FileManagement.loadFromFile(file);
         lstContacts.getItems().clear();
         lstContacts.getItems().addAll(listOfContacts);
-        lblThisFileName.setText(fileName);   
+        lblThisFileName.setText(file.getName());   
         lblTotalRegister.setText(Integer.toString(listOfContacts.size()));
     }
     /*Salva um contato na agenda*/
@@ -132,12 +158,11 @@ public class FXMLMainScreenController implements Initializable {
     public void btnSaveContactClick(ActionEvent event){
         try{            
             listOfContacts.add(this.catchNewContactData());
-            FileManagement.saveInFile(listOfContacts, "contato.ser");
             this.clearForm();
+            this.enableForm(false);
             btnNewContact.setDisable(false);
             btnSaveContact.setDisable(true);
-            lstContacts.getItems().clear();
-            lstContacts.getItems().addAll(listOfContacts);
+            this.updateListOfContacts(listOfContacts);
         }catch (NumberFormatException numberFormatException){
             System.err.println("Numero com formato errado!");        
         }
@@ -153,9 +178,66 @@ public class FXMLMainScreenController implements Initializable {
         txtEmail.clear();
         txtCountryPhone.clear();
         txtDDDPhone.clear();
-        txtNumberPhone.clear();
-        txtFirstName.getText();
+        txtNumberPhone.clear();        
     }
+    /*Habilita ou Desabilita todos campos do formulário*/
+    @FXML
+    private void enableForm(boolean enable){
+        txtFirstName.setDisable(!enable);
+        txtLastName.setDisable(!enable);
+        txtCPF.setDisable(!enable);
+        txtBirthday.setDisable(!enable);
+        txtAddress.setDisable(!enable);
+        txtEmail.setDisable(!enable);
+        txtCountryPhone.setDisable(!enable);
+        txtDDDPhone.setDisable(!enable);
+        txtNumberPhone.setDisable(!enable);
+    }
+    /*Ordena a Lista de Contatos atual*/
+    @FXML
+    public void btnSortScheduleClick(){
+        Contact newContact = new Contact();
+        listOfContacts.sort(newContact);
+        this.updateListOfContacts(listOfContacts);
+    }
+    /*Edita um contato da lista*/
+    @FXML
+    public void btnEditContact(){
+        this.enableForm(true);
+        btnSaveContact.setDisable(false);
+        btnNewContact.setDisable(true);
+        btnDeleteContact.setDisable(true);
+        btnEditContact.setDisable(true);        
+    }
+    /*Deleta um contato da lista*/
+    @FXML
+    public void btnDeleteContactClick(){
+        Object thisContact=new Contact();
+        thisContact = lstContacts.getSelectionModel().getSelectedItem();        
+        listOfContacts.remove(thisContact);
+        this.updateListOfContacts(listOfContacts);
+    }
+    /*Atualiza o formulário com as informações do contato selecionado no ListView*/
+    @FXML
+    public void lstContactsSelectOne(){
+        Object thisContact=new Contact();
+        thisContact = lstContacts.getSelectionModel().getSelectedItem();
+        txtFirstName.setText(((Contact)thisContact).getFirstName());
+        txtLastName.setText(((Contact)thisContact).getLastName());
+        txtBirthday.setText(((Contact)thisContact).getBirthDay());
+        txtCPF.setText(((Contact)thisContact).getCpf());
+        txtAddress.setText(((Contact)thisContact).getAddress());
+        txtEmail.setText(((Contact)thisContact).getEmail());
+        txtCountryPhone.setText(Integer.toString(((Contact)thisContact).getPhone().getCountry()));
+        txtDDDPhone.setText(Integer.toString(((Contact)thisContact).getPhone().getDdd()));
+        txtNumberPhone.setText(Integer.toString(((Contact)thisContact).getPhone().getNumber()));
+        btnSaveContact.setDisable(true);
+        btnNewContact.setDisable(false);
+        btnEditContact.setDisable(false);
+        btnDeleteContact.setDisable(false);
+        lblThisRegister.setText(Integer.toString(listOfContacts.indexOf(thisContact)));
+    }
+    /*Captura os dados do formulário e cria um novo objeto 'Contact'*/
     @FXML
     private Contact catchNewContactData(){
         Contact newContact;
@@ -173,6 +255,13 @@ public class FXMLMainScreenController implements Initializable {
                                       newPhone);
         return newContact;
     }
+    /*Atualiza a lista de contatos*/
+    private void updateListOfContacts(ArrayList<Object> newListOfContacts){
+            lstContacts.getItems().clear();
+            lstContacts.getItems().addAll(newListOfContacts);
+            lblTotalRegister.setText(Integer.toString(listOfContacts.size()));
+    }
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -185,8 +274,11 @@ public class FXMLMainScreenController implements Initializable {
         btnEditContact.setDisable(true);
         btnSaveContact.setDisable(true);
         btnDeleteContact.setDisable(true);
+        btnSaveSchedule.setDisable(true);
+        btnSortSchedule.setDisable(true);
+        btnSearchContact.setDisable(true);
         lblThisFileName.setText(" ");
-        
+        this.enableForm(false);        
     }    
     
 }

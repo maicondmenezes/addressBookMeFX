@@ -14,46 +14,123 @@
 package addressbookmefx.data;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  *
  * @author MaJoy
  */
-public class Contact extends Person implements Serializable {
+public class Contact implements Serializable, Comparator{
+    private String firstName;
+    private String lastName;
+    private String cpf;
+    private String birthday;
+    private String address;
     private String email;
     private Phone phone;
-
-    public Contact(String firstName, 
-                   String lastName, 
-                   String cpf, 
-                   String date,
-                   String address, 
-                   String email, 
-                   Phone phone){
-        super(firstName, lastName, cpf, date, address);
+    public Contact(String firstName, String lastName, String cpf, String birthday,
+                   String address,   String email,    Phone phone){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.cpf = cpf; 
+        this.birthday = birthday;
+        this.address = address;
         this.email = email;
         this.phone = phone;
+    }
+    
+     public String getFullName() {
+        return this.getFirstName()+" "+this.getLastName();
+    }
+
+    @Override
+    public String toString(){
+       return this.getFullName();
     }
     
     public Contact(){
         this("","","","","","",null);
     }
 
-    @Override
     public String exportText() {
-        StringBuilder str = new StringBuilder();
-        str.append("Nome: ");
-        str.append(super.exportText());
-              
-        str.append("Email: ");
-        str.append(this.email);
-                  
-        str.append("Telefone:");
-        str.append(this.phone.toString());
-        str.append("\n");        
-
-        return str.toString();
+        
+        return "| Nome: "      + this.getFullName()+
+               "| CPF: "       + this.getCpf()+
+               "| Nascimento: "+ this.getBirthDay()+
+               "| Endereço: "  +this.getAddress()+
+               "| Email: "     +this.getEmail()+
+               "| Telefone: "  +this.getPhone().toString()+
+               "\n";       
     }
+     /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @return the cpf
+     */
+    public String getCpf() {
+        return cpf;
+    }
+
+    /**
+     * @return the birthDay
+     */
+    public String getBirthDay() {
+        return birthday;
+    }
+
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    /**
+     * @param cpf the cpf to set
+     */
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    /**
+     * @param birthDay the birthDay to set
+     */
+    public void setBirthDay(String birthDay) {
+        this.birthday = birthDay;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }   
 
     /**
      * @return the emailList
@@ -83,4 +160,8 @@ public class Contact extends Person implements Serializable {
         this.phone = phone;
     }
 
+    @Override
+    public int compare(Object contact1, Object contact2) {
+        return ((Contact)contact1).getFullName().compareTo(((Contact)contact2).getFullName());
+    }
 }

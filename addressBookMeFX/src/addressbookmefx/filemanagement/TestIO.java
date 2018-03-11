@@ -31,9 +31,9 @@ public class TestIO{
         listaDePessoas.add(pessoa);
         listaDePessoas.add(pessoa2);
         FileManagement.saveInFile(listaDePessoas, "contato.ser");*/
-        ArrayList<Object> Resposta = FileManagement.loadFromFile("contato.ser");
+       /* ArrayList<Object> Resposta = FileManagement.loadFromFile("contato.ser");
         for (Object item: Resposta){
             System.out.printf("%s",((Contact)item).toString());
-        }    
+        }    */
     }
 }

@@ -12,12 +12,11 @@ import java.io.ObjectOutputStream;
   public class FileManagement {
    
     // serialização: gravando o objetos no arquivo binário "fileName"
-    public static void saveInFile(ArrayList<Object> objectList, String fileName) {
-      File objectFile = new File(fileName);
+    public static void saveInFile(ArrayList<Object> objectList, File file){      
       try {
-        objectFile.delete();
-        objectFile.createNewFile();    
-        ObjectOutputStream objectOutput = new ObjectOutputStream(new FileOutputStream(objectFile));
+        file.delete();
+        file.createNewFile();    
+        ObjectOutputStream objectOutput = new ObjectOutputStream(new FileOutputStream(file));
         objectOutput.writeObject(objectList);
         objectOutput.close();            
       } catch(IOException erro) {
@@ -26,21 +25,17 @@ import java.io.ObjectOutputStream;
     }
     
     // desserialização: recuperando os objetos gravados no arquivo binário "fileName"
-    public static ArrayList<Object> loadFromFile(String fileName) {
+    public static ArrayList<Object> loadFromFile(File file) {
       ArrayList<Object> objectList = new ArrayList();
       try {
-        File objectFile = new File(fileName);
-        if (objectFile.exists()) {
-           ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(objectFile));
+        if (file.exists()) {
+           ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(file));
            objectList = (ArrayList<Object>)objInput.readObject();
            objInput.close();
         }
-      } catch(IOException erro1) {
+      } catch(IOException | ClassNotFoundException erro1) {
           System.out.printf("Erro: %s", erro1.getMessage());
-      } catch(ClassNotFoundException erro2) {
-          System.out.printf("Erro: %s", erro2.getMessage());
-      }
-    
+      }    
       return objectList;
     }
     

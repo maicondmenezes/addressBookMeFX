@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="268.9609375" prefWidth="637.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="addressbookmefx.graphicinterface.FXMLMainScreenController">
   <children>
-    <Button id="Nova" fx:id="btnNewSchedule" defaultButton="true" layoutX="15.0" layoutY="14.0" mnemonicParsing="false" text="Nova" />
+    <Button id="Nova" fx:id="btnNewSchedule" defaultButton="true" layoutX="15.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNewScheduleClick" text="Nova" />
     <SplitPane fx:id="slpInnerForm" dividerPositions="" focusTraversable="true" layoutX="7.0" layoutY="42.0" prefHeight="198.0" prefWidth="622.0">
       <items>
         <AnchorPane maxHeight="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="176.0" prefWidth="620.0">
@@ -45,11 +45,11 @@
                 </FXCollections>
               </items>
             </ComboBox>
-            <Button fx:id="btnSaveContact" defaultButton="true" disable="false" layoutX="64.0" layoutY="170.0" mnemonicParsing="false" onAction="#btnSaveContactClick" text="Salvar" />
+            <Button fx:id="btnSaveContact" defaultButton="true" disable="false" layoutX="64.0" layoutY="170.0" mnemonicParsing="false" onAction="#btnSaveContactClick" text="Adicionar" />
             <Button fx:id="btnNewContact" defaultButton="true" layoutX="10.0" layoutY="170.0" mnemonicParsing="false" onAction="#btnNewContactClick" text="Novo" />
-            <Button fx:id="btnDeleteContact" defaultButton="true" disable="false" layoutX="414.0" layoutY="170.0" mnemonicParsing="false" text="Excluir" />
+            <Button fx:id="btnDeleteContact" defaultButton="true" disable="false" layoutX="414.0" layoutY="170.0" mnemonicParsing="false" onAction="#btnDeleteContactClick" text="Excluir" />
             <Button fx:id="btnEditContact" defaultButton="true" disable="false" layoutX="357.0" layoutY="170.0" mnemonicParsing="false" text="Editar" />
-            <ListView fx:id="lstContacts" layoutX="478.0" layoutY="20.0" prefHeight="172.0" prefWidth="135.0" />
+            <ListView fx:id="lstContacts" layoutX="478.0" layoutY="20.0" onKeyReleased="#lstContactsSelectOne" onMouseClicked="#lstContactsSelectOne" prefHeight="172.0" prefWidth="135.0" />
           </children>
         </AnchorPane>
       </items>
@@ -64,9 +64,11 @@
     <Label fx:id="lblThisRegister" layoutX="592.0" layoutY="14.0" text="N" />
     <Label fx:id="lblTotalRegister" font="$x1" layoutX="609.0" layoutY="14.0" text="N" />
     <Label fx:id="lblRegisterBar" font="$x1" layoutX="603.0" layoutY="14.0" text="|" />
-    <TextField fx:id="txtSearchContact" layoutX="160.0" layoutY="14.0" prefWidth="295.0" promptText="Digite o CPF do contato que deseja encontrar" />
+    <TextField fx:id="txtSearchContact" layoutX="320.0" layoutY="14.0" prefWidth="135.0" promptText="CPF para pesquisa" />
     <Button fx:id="btnSearchContact" defaultButton="true" layoutX="464.0" layoutY="14.0" mnemonicParsing="false" text="Search" />
     <Button id="Abrir" fx:id="btnOpenSchedule" defaultButton="true" layoutX="69.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnOpenScheduleClick" text="Abrir" />
+    <Button fx:id="btnSortSchedule" defaultButton="true" layoutX="120.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnSortScheduleClick" text="Ordenar" />
+    <Button fx:id="btnSaveSchedule" defaultButton="true" layoutX="190.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnSaveScheduleClick" text="Salvar" />
   </children>
   <stylesheets>
     <URL value="@fxmlmainscreen.css" />
