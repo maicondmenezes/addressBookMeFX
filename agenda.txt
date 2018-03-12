@@ -1,0 +1,18 @@
+
+| Nome: MAicon asdasd
+| CPF: wqeqwe
+| Nascimento: 2018-03-12
+| Endereço: asdwe
+| Email: qwer
+| Telefone: 58796655 Tipo: Casa
+-----------------------------------------------
+
+
+| Nome: Bitcoin asdasd
+| CPF: wqeqwe
+| Nascimento: 2018-03-12
+| Endereço: asdwe
+| Email: qwer
+| Telefone: 58796655 Tipo: Casa
+-----------------------------------------------
+
