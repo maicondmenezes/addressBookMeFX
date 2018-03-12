@@ -56,7 +56,7 @@
       </items>
     </SplitPane>
     <Label fx:id="lblThisFile" font="$x1" layoutX="14.0" layoutY="245.0" text="Agenda:" />
-    <Label fx:id="lblThisFileName" layoutX="63.0" layoutY="245.0" text="arquivo.scd">
+    <Label fx:id="lblThisFileName" layoutX="63.0" layoutY="245.0" text="arquivo.abm">
       <font>
         <Font name="System Italic" size="12.0" />
       </font>
