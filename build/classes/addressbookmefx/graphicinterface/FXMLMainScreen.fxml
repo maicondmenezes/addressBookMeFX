@@ -35,7 +35,7 @@
             <Label fx:id="lblEmail" font="$x1" layoutX="5.0" layoutY="101.0" text="E-mail :" />
             <TextField fx:id="txtEmail" layoutX="70.0" layoutY="100.0" prefWidth="395.0" promptText="example@example.com" />
             <Label fx:id="lblPhone" font="$x1" layoutX="5.0" layoutY="131.0" text="Telefone :" />
-            <TextField fx:id="txtNumberPhone" layoutX="71.0" layoutY="130.0" prefWidth="135.0" />
+            <TextField fx:id="txtNumberPhone" layoutX="71.0" layoutY="130.0" prefWidth="135.0" promptText="(00)00000-00000"/>
             <ComboBox fx:id="cmbTypePhone" editable="false" layoutX="264.0" layoutY="130.0" prefHeight="21.0" prefWidth="200.0" visibleRowCount="5">
               <items>
                 <FXCollections fx:factory="observableArrayList">

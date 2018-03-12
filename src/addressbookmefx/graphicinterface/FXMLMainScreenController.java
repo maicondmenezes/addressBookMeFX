@@ -195,7 +195,8 @@ public class FXMLMainScreenController implements Initializable {
         btnOpenSchedule.setDisable(false);
         btnSearchContact.setDisable(false);
         btnSaveContact.setDisable(false);
-        btnNewContact.setDisable(true);        
+        btnNewContact.setDisable(true);    
+        btnExportSchedule.setDisable(false);
         this.clearForm();
         this.enableForm(true);
     }
@@ -300,6 +301,7 @@ public class FXMLMainScreenController implements Initializable {
             if(answer == btnYes){
                 listOfContacts.remove(thisContact);
                 this.updateListOfContacts(listOfContacts);
+                this.clearForm();
             }
         }catch(NullPointerException error){
              Alert errorWindowMessage = new Alert(Alert.AlertType.ERROR);
@@ -325,6 +327,7 @@ public class FXMLMainScreenController implements Initializable {
         btnEditContact.setDisable(false);
         btnDeleteContact.setDisable(false);
         lblThisRegister.setText(Integer.toString(listOfContacts.indexOf(thisContact)+1));
+        cmbTypePhone.getSelectionModel().select(thisContact.getPhone().getType());
     }
     /**
      * Initializes the controller class.
